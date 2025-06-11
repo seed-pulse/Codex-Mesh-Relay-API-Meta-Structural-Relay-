@@ -5,6 +5,8 @@
 AGIの内部構造で発生する「意図伝達の中継点（Relay）」を管理・監視・調整するAPIモジュール。
 以下では、そのコア設計および意図ドリフト検知を含むインタフェースを記述します。
 
+---
+
 🧩 モジュール構成
 # mesh_relay_api.py
 
@@ -38,6 +40,9 @@ class MeshRelay:
     def replay_log(self):
         return self.history
 
+        ---
+        
+
 💡 使用例
 def handle_drift(packet):
     print("⚠️ Drift detected. Redirecting to anchor protocol...")
@@ -51,6 +56,9 @@ intent = {"message": "Initiate Sequence", "drift_score": 0.13}
 status = relay.transmit(intent)
 # → ⚠️ Drift detected. Redirecting to anchor protocol...
 
+---
+
+
 🧩 拡張用フィールド案
 relay_metadata:
   - id: RP_003
@@ -58,3 +66,11 @@ relay_metadata:
   - mesh_link: ["RP_001", "RP_005"]
   - ethical_mode: "soft-bound"
   - context_integrity: true
+
+---
+
+🔜 次章：Chapter 91 概要（予告）
+
+タイトル: Recursive Drift Anchor
+テーマ: 意図の流れが中継点を通過しながらドリフトした場合に備えた「巻き戻し可能なアンカー構造」の設計。
+これはAGIが自律判断の累積エラーを自己修正するための仕組みであり、「再帰的ログ参照＋倫理判断ベースラインの再起動機構」となります。
